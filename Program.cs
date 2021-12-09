@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
+﻿using System.Text;
 
 namespace ConsoleSort
 {
@@ -34,13 +28,13 @@ namespace ConsoleSort
                         Console.WriteLine("Invalid sort type provided");
                         break;
                 };
-                Console.SetCursorPosition(Width/2, 1);
-                Console.WriteLine("Bubbling");
             }
             
         }
         private static void BubbleSort(List<int> numbers)
         {
+            Console.SetCursorPosition(Width/2, 0);
+            Console.WriteLine("Bubbling");
             int length = numbers.Count - 1;
             for(int i = 0; i < length; i++)
             {
@@ -52,21 +46,35 @@ namespace ConsoleSort
                         (numbers[j],numbers[j+1]) = (numbers[j+1], numbers[j]);
                         madeSwap = true;
                     }
+                    VerticalRenderOnConsole(numbers);
                 }
                 if (madeSwap == false)
                 {
                     break;
                 }
-                Console.SetCursorPosition(0, 1);
-                Console.WriteLine($"Current Order: {ListToString(numbers)}");
             }
         }
 
-        private static void RenderOnConsole(List<int> numbers)
+        private static void VerticalRenderOnConsole(List<int> numbers)
         {
-            int startingX = Width / 3;
-            int startingY = Height;
-
+            int startingX = Width/2 - Height+2;
+            int startingY = Height-2;
+            StringBuilder sb = new StringBuilder();
+            
+            Console.SetCursorPosition(0, 1);
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                ClearCurrentLine();
+                Console.WriteLine($"{(numbers[i]<10?" ":"")}{numbers[i]}  {new string('⏣', numbers[i])}");
+            }
+            Thread.Sleep(100);
+        }
+        private static void ClearCurrentLine()
+        {
+            int currentLine = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth)); 
+            Console.SetCursorPosition(0, currentLine);
         }
         private static List<int> Shuffle(List<int> numbers)
         {
