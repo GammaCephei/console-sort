@@ -24,6 +24,9 @@ namespace ConsoleSort
                     case "-bubble":
                         BubbleSort(numbers);
                         break;
+                    case "-insertion":
+                        InsertionSort(numbers);
+                        break;
                     default:
                         Console.WriteLine("Invalid sort type provided");
                         break;
@@ -34,7 +37,7 @@ namespace ConsoleSort
         private static void BubbleSort(List<int> numbers)
         {
             Console.SetCursorPosition(Width/2, 0);
-            Console.WriteLine("Bubbling");
+            Console.WriteLine("Bubble Sort");
             int length = numbers.Count - 1;
             for(int i = 0; i < length; i++)
             {
@@ -55,6 +58,21 @@ namespace ConsoleSort
             }
             VerticalRenderOnConsole(numbers, true);
         }
+        private static void InsertionSort(List<int> numbers)
+        {
+            Console.SetCursorPosition(Width/2, 0);
+            Console.WriteLine("Insert Sort");
+            int length = numbers.Count - 1;
+            for(int i = 1; i <= length; i++)
+            {
+                for (int j = i; j > 0 && numbers[j - 1] > numbers[j]; j--)
+                {
+                    (numbers[j],numbers[j-1]) = (numbers[j-1], numbers[j]);
+                    VerticalRenderOnConsole(numbers, false);
+                }
+            }
+            VerticalRenderOnConsole(numbers, true);
+        }
         private static void HorizontalRenderOnConsole(List<int> numbers)
         {
             int startingX = Width/2 - Height+2;
@@ -62,13 +80,12 @@ namespace ConsoleSort
         }
         private static void VerticalRenderOnConsole(List<int> numbers, bool completed)
         {
-            StringBuilder sb = new StringBuilder();
             Console.SetCursorPosition(0, 1);
             
             for (int i = 0; i < numbers.Count; i++)
             {
                 ClearCurrentLine();
-                Console.Write($"{(numbers[i]<10?" ":"")}{numbers[i]} ");
+                Console.Write($"{numbers[i],3} ");
                 if (completed)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
