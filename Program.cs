@@ -46,26 +46,35 @@ namespace ConsoleSort
                         (numbers[j],numbers[j+1]) = (numbers[j+1], numbers[j]);
                         madeSwap = true;
                     }
-                    VerticalRenderOnConsole(numbers);
+                    VerticalRenderOnConsole(numbers, false);
                 }
                 if (madeSwap == false)
                 {
                     break;
                 }
             }
+            VerticalRenderOnConsole(numbers, true);
         }
-
-        private static void VerticalRenderOnConsole(List<int> numbers)
+        private static void HorizontalRenderOnConsole(List<int> numbers)
         {
             int startingX = Width/2 - Height+2;
             int startingY = Height-2;
+        }
+        private static void VerticalRenderOnConsole(List<int> numbers, bool completed)
+        {
             StringBuilder sb = new StringBuilder();
-            
             Console.SetCursorPosition(0, 1);
+            
             for (int i = 0; i < numbers.Count; i++)
             {
                 ClearCurrentLine();
-                Console.WriteLine($"{(numbers[i]<10?" ":"")}{numbers[i]}  {new string('⏣', numbers[i])}");
+                Console.Write($"{(numbers[i]<10?" ":"")}{numbers[i]} ");
+                if (completed)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                Console.Write($"{new string('⏣', numbers[i])} \n");
+                Console.ResetColor();
             }
             Thread.Sleep(100);
         }
@@ -88,7 +97,6 @@ namespace ConsoleSort
 
             return numbers;
         }
-
         private static string ListToString(List<int> numbers)
         {
             return string.Join(",", numbers);
