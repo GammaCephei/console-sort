@@ -12,6 +12,7 @@ Console Based Graphical Sort Visualiser built while learning the basics of C#.
 ## Sorts  
 ☑️ Bubble  
 ☑️Insertion  
+☑ Selection
 ☐ Merge   
 ☐ Heapsort  
 ☐ Quicksort  

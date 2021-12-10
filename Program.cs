@@ -16,7 +16,7 @@ namespace ConsoleSort
 
             Console.WriteLine($"Starting Order: {ListToString(numbers)}");
             
-            if (args.Length > 0 && !string.IsNullOrEmpty(args[0]) )
+            if (args.Length > 0 )
             {
                 var sortType = args.FirstOrDefault();
                 switch (sortType)
@@ -26,6 +26,9 @@ namespace ConsoleSort
                         break;
                     case "-insertion":
                         InsertionSort(numbers);
+                        break;
+                    case "-selection":
+                        SelectionSort(numbers);
                         break;
                     default:
                         Console.WriteLine("Invalid sort type provided");
@@ -73,6 +76,29 @@ namespace ConsoleSort
             }
             VerticalRenderOnConsole(numbers, true);
         }
+        private static void SelectionSort(List<int> numbers)
+        {
+            Console.SetCursorPosition(Width/2, 0);
+            Console.WriteLine("Insert Sort");
+            int length = numbers.Count - 1;
+            for(int i = 0; i <= length; i++)
+            {
+                int min = i;
+                for (int j = i + 1; j <= length ; j++)
+                {
+                    if (numbers[min] > numbers[j])
+                    {
+                        min = j;
+                    }
+                }
+                if (min != i)
+                {
+                    (numbers[i],numbers[min]) = (numbers[min], numbers[i]);
+                }
+                VerticalRenderOnConsole(numbers, false);
+            }
+            VerticalRenderOnConsole(numbers, true);
+        }
         private static void HorizontalRenderOnConsole(List<int> numbers)
         {
             int startingX = Width/2 - Height+2;
@@ -93,7 +119,7 @@ namespace ConsoleSort
                 Console.Write($"{new string('⏣', numbers[i])} \n");
                 Console.ResetColor();
             }
-            Thread.Sleep(100);
+            Thread.Sleep(125);
         }
         private static void ClearCurrentLine()
         {
