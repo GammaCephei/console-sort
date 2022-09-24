@@ -30,6 +30,9 @@ namespace ConsoleSort
                     case "-selection":
                         SelectionSort(numbers);
                         break;
+                    case "-merge":
+                        MergeSort(numbers);
+                        break;
                     default:
                         Console.WriteLine("Invalid sort type provided");
                         break;
@@ -99,6 +102,41 @@ namespace ConsoleSort
             }
             VerticalRenderOnConsole(numbers, true);
         }
+        private static void MergeSort(List<int> numbers)
+        {
+            Console.SetCursorPosition(Width/2, 0);
+            Console.WriteLine("Insert Sort");
+
+            List<int> MergeRecursively(List<int> nums)
+            {
+                int length = nums.Count - 1;
+                if (length < 1) return nums;
+                
+                int middle = length / 2;
+                List<int> left = new List<int>();
+                List<int> right = new List<int>();
+
+                for (int i = 0; i <= length; i++)
+                {
+                    if (i <= middle) left.Add(nums[i]);
+                    else right.Add(nums[i]);
+                }
+
+                MergeRecursively(left);
+                MergeRecursively(right);
+                Merge(nums, left, right, middle);
+                return numbers;
+            }
+            void Merge(List<int> nums, List<int> left, List<int> right, int middle)
+            {
+                throw new NotImplementedException();
+            }
+            
+
+            VerticalRenderOnConsole(numbers, true);
+        }
+
+
         private static void HorizontalRenderOnConsole(List<int> numbers)
         {
             int startingX = Width/2 - Height+2;
